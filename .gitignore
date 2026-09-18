@@ -1,0 +1,13 @@
+Backend/.env
+docker/.env
+front-admin/.env
+node_modules/
+vendor/
+.env
+.env.*
+.env
+.env.*
+node_modules/
+vendor/
+.idea/
+.vscode/
