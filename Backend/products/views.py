@@ -2,25 +2,17 @@ from django.shortcuts import get_object_or_404
 from django.db.models.deletion import ProtectedError
 from rest_framework.response import Response
 from rest_framework import status
-
-from rest_framework.generics import (
-    CreateAPIView,
-    ListAPIView,
-    RetrieveUpdateDestroyAPIView,
-)
-
-from .models import Category
-from .serializers import (
-    CategoryCreateSerializer,
-    CategoryListSerializer,
-    CategoryUpdateSerializer,
-)
-
+from rest_framework.generics import (CreateAPIView,ListAPIView,RetrieveUpdateDestroyAPIView)
+from .models import Category, Product
+from .serializers import (CategoryCreateSerializer,CategoryListSerializer,CategoryUpdateSerializer,ProductListSerializer,ProductCreateSerializer)
 
 class CategoryCreateAPIView(CreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategoryCreateSerializer
 
+class ProductCreateAPIView(CreateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductCreateSerializer
 
 class CategoryListAPIView(ListAPIView):
     queryset = Category.objects.select_related("parent").order_by("name")
@@ -78,3 +70,8 @@ class CategoryDetailUpdateDeleteAPIView(RetrieveUpdateDestroyAPIView):
         return Response(
             status=status.HTTP_204_NO_CONTENT
         )
+
+class ProductListAPIView(ListAPIView):
+
+    queryset = Product.objects.select_related("category").order_by("name")
+    serializer_class = ProductListSerializer

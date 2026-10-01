@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { getCategories,createCategory } from "@/services/categoryService";
 import type { Category } from "@/types/category";
 import { buildCategoryTree } from "@/utils/categoryTree";
-import CategoryRow from "@/components/categories/CategoryRow";
 import CategoryForm from "@/components/categories/CategoryForm";
 import CategoryTable from "@/components/categories/CategoryTable";
 
@@ -18,7 +17,7 @@ export default function CategoriesPage() {
   const [parent, setParent] = useState("");
   const rootCategories = categories.filter(
   (category) => category.parent === null
-);
+  );
   const loadCategories = async () => {
   try {
     setLoading(true);

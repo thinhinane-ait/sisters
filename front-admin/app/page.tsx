@@ -36,6 +36,7 @@ export default function Home() {
         {/* SIDEBAR */}
         <aside className="hidden w-72 border-r border-rose-100 bg-white/80 p-6 backdrop-blur lg:block">
           <div className="mb-10 flex items-center gap-3">
+
             <Image
               src="/logo-sisters_2.jpeg"
               alt="Sisters"
@@ -99,7 +100,7 @@ export default function Home() {
               Utilisateurs
             </Link>
             <Link
-              href="/users"
+              href="/colors"
               className="block rounded-xl px-4 py-3 text-slate-600 transition hover:bg-rose-50 hover:text-violet-700"
             >
               Couleurs
@@ -125,7 +126,11 @@ export default function Home() {
             </div>
 
             <button className="rounded-xl bg-gradient-to-r from-violet-600 to-rose-500 px-5 py-3 font-medium text-white shadow-lg shadow-violet-200 transition hover:scale-[1.02]">
-              + Ajouter un produit
+             
+              <Link href="/products">
+                + Ajouter un produit
+              </Link>
+
             </button>
           </header>
 

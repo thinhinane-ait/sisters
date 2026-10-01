@@ -38,3 +38,11 @@ export async function createCategory(
   return response.json();
 }
 
+
+////// API remove category
+
+
+// export async function deleteCategory(
+//   params:type) {
+  
+// }
