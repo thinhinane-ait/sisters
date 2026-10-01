@@ -3,8 +3,9 @@ from django.db.models.deletion import ProtectedError
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.generics import (CreateAPIView,ListAPIView,RetrieveUpdateDestroyAPIView)
+from rest_framework.views import APIView
 from .models import Category, Product
-from .serializers import (CategoryCreateSerializer,CategoryListSerializer,CategoryUpdateSerializer,ProductListSerializer,ProductCreateSerializer)
+from .serializers import (CategoryCreateSerializer,CategoryListSerializer,CategoryUpdateSerializer,ProductListSerializer,ProductCreateSerializer,ProductVariantCreateSerializer)
 
 class CategoryCreateAPIView(CreateAPIView):
     queryset = Category.objects.all()
@@ -75,3 +76,28 @@ class ProductListAPIView(ListAPIView):
 
     queryset = Product.objects.select_related("category").order_by("name")
     serializer_class = ProductListSerializer
+
+class ProductVariantCreateView(APIView):
+
+    def post(self, request, product_id):
+        product = get_object_or_404(
+            Product,
+            pk=product_id,
+        )
+
+        serializer = ProductVariantCreateSerializer(
+            data=request.data
+        )
+
+        serializer.is_valid(
+            raise_exception=True
+        )
+
+        variant = serializer.save(
+            product=product
+        )
+
+        return Response(
+            ProductVariantCreateSerializer(variant).data,
+            status=status.HTTP_201_CREATED,
+        )
